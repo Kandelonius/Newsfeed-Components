@@ -87,7 +87,7 @@ const data = [
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
-
+const articles = document.querySelector('.articles');
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
   <div class="article">
@@ -102,7 +102,7 @@ const data = [
 
   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
 */
-function createComponent({ title, date, paragraphOne, paragraphTwo, paragraphThree}){
+function createComponent({ title, date, firstParagraph, secondParagraph, thirdParagraph}){
   const article = document.createElement('div');
   const articleTitle = document.createElement('h2');
   const articleDate = document.createElement('p');
@@ -121,18 +121,25 @@ function createComponent({ title, date, paragraphOne, paragraphTwo, paragraphThr
   expandButton.classList.add('expandButton');
   articleTitle.textContent = title;
   articleDate.textContent = date;
-  articleParagraph1 = paragraphOne;
-  articleParagraph2 = paragraphTwo;
-  articleParagraph3 = paragraphThree;
+  articleParagraphOne.textContent = firstParagraph;
+  articleParagraphTwo.textContent = secondParagraph;
+  articleParagraphThree.textContent = thirdParagraph;
+  expandButton.textContent = "click me!";
   // Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-  // console.log(article);
+  console.log(article);
   const articleToggle = (event) => {
     article.classList.toggle('article-open');
   };
   expandButton.addEventListener('click', articleToggle);
   // Step 3: return the entire component.
+  return article;
 };
   // Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
-
+const articleElements = data.map(articleData => {
+  return createComponent({ title: articleData.title, date: articleData.date, firstParagraph: articleData.firstParagraph, secondParagraph: articleData.secondParagraph, thirdParagraph: articleData.thirdParagraph});
+});
+articleElements.forEach(articleElement => {
+    articles.appendChild(articleElement)
+});
   // Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 // createComponent({});
