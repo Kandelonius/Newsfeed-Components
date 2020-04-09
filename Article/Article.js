@@ -85,6 +85,26 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Kaprekar\'s constant',
+    date: '495 1st,  6174',
+    firstParagraph: `6174 is known as Kaprekar's constant[1][2][3] after the Indian mathematician D. R. Kaprekar. This number is notable for the following rule:
+
+    Take any four-digit number, using at least two different digits. (Leading zeros are allowed.)
+    Arrange the digits in descending and then in ascending order to get two four-digit numbers, adding leading zeros if necessary.
+    Subtract the smaller number from the bigger number.
+    Go back to step 2 and repeat.
+    The above process, known as Kaprekar's routine, will always reach its fixed point, 6174, in at most 7 iterations.[4] Once 6174 is reached, the process will continue yielding 7641 – 1467 = 6174. For example, choose 3524:
+    
+    5432 – 2345 = 3087
+    8730 – 0378 = 8352
+    8532 – 2358 = 6174
+    7641 – 1467 = 6174`,
+
+    secondParagraph: `The only four-digit numbers for which Kaprekar's routine does not reach 6174 are repdigits such as 1111, which give the result 0000 after a single iteration. All other four-digit numbers eventually reach 6174 if leading zeros are used to keep the number of digits at 4.`,
+
+    thirdParagraph: `There can be analogous fixed points for digit lengths other than four, for instance if we use 3-digit numbers then most sequences (i.e., other than repdigits such as 111) will terminate in the value 495 in at most 6 iterations. Sometimes these numbers (495, 6174, and their counterparts in other digit lengths or in bases other than 10) are called "Kaprekar constants".`
   }
 ];
 const articles = document.querySelector('.articles');
@@ -126,7 +146,7 @@ function createComponent({ title, date, firstParagraph, secondParagraph, thirdPa
   articleParagraphThree.textContent = thirdParagraph;
   expandButton.textContent = "click me!";
   // Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-  console.log(article);
+  // console.log(article);
   const articleToggle = (event) => {
     article.classList.toggle('article-open');
   };
