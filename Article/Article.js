@@ -85,9 +85,29 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Kaprekar\'s constant',
+    date: '495 1st,  6174',
+    firstParagraph: `6174 is known as Kaprekar's constant[1][2][3] after the Indian mathematician D. R. Kaprekar. This number is notable for the following rule:
+
+    Take any four-digit number, using at least two different digits. (Leading zeros are allowed.)
+    Arrange the digits in descending and then in ascending order to get two four-digit numbers, adding leading zeros if necessary.
+    Subtract the smaller number from the bigger number.
+    Go back to step 2 and repeat.
+    The above process, known as Kaprekar's routine, will always reach its fixed point, 6174, in at most 7 iterations.[4] Once 6174 is reached, the process will continue yielding 7641 – 1467 = 6174. For example, choose 3524:
+    
+    5432 – 2345 = 3087
+    8730 – 0378 = 8352
+    8532 – 2358 = 6174
+    7641 – 1467 = 6174`,
+
+    secondParagraph: `The only four-digit numbers for which Kaprekar's routine does not reach 6174 are repdigits such as 1111, which give the result 0000 after a single iteration. All other four-digit numbers eventually reach 6174 if leading zeros are used to keep the number of digits at 4.`,
+
+    thirdParagraph: `There can be analogous fixed points for digit lengths other than four, for instance if we use 3-digit numbers then most sequences (i.e., other than repdigits such as 111) will terminate in the value 495 in at most 6 iterations. Sometimes these numbers (495, 6174, and their counterparts in other digit lengths or in bases other than 10) are called "Kaprekar constants".`
   }
 ];
-
+const articles = document.querySelector('.articles');
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
   <div class="article">
@@ -98,17 +118,48 @@ const data = [
 
     <span class='expandButton'></span>
   </div>
-
   Hint: You will need to use createElement more than once here!
 
   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
-
-  Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-
-  Step 3: return the entire component.
-
-  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
-
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-
 */
+function createComponent({ title, date, firstParagraph, secondParagraph, thirdParagraph}){
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const articleParagraphOne = document.createElement('p');
+  const articleParagraphTwo = document.createElement('p');
+  const articleParagraphThree = document.createElement('p');
+  const expandButton = document.createElement('span');
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(articleParagraphOne);
+  article.appendChild(articleParagraphTwo);
+  article.appendChild(articleParagraphThree);
+  article.appendChild(expandButton);
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  expandButton.classList.add('expandButton');
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  articleParagraphOne.textContent = firstParagraph;
+  articleParagraphTwo.textContent = secondParagraph;
+  articleParagraphThree.textContent = thirdParagraph;
+  expandButton.textContent = "click me!";
+  // Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+  // console.log(article);
+  const articleToggle = (event) => {
+    article.classList.toggle('article-open');
+  };
+  expandButton.addEventListener('click', articleToggle);
+  // Step 3: return the entire component.
+  return article;
+};
+  // Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
+const articleElements = data.map(articleData => {
+  return createComponent({ title: articleData.title, date: articleData.date, firstParagraph: articleData.firstParagraph, secondParagraph: articleData.secondParagraph, thirdParagraph: articleData.thirdParagraph});
+});
+articleElements.forEach(articleElement => {
+    articles.appendChild(articleElement)
+});
+  // Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
+// createComponent({});
